@@ -24,7 +24,7 @@ def prepare_parser():
                         dest="enhancer",action="store")
     # parser.add_argument('-s','--species',help="Choose the species, mouse only now",default="mouse",
     #                     dest="species")
-    parser.add_argument('-d','--db',help="Absolute path of ",dest="db",default="db")
+    parser.add_argument('-d','--db',help="Absolute path of database",dest="db",default="db")
     parser.add_argument('-o','--outpre',help="Output prefix",dest="outpre",default="./")
     parser.add_argument('-r','--resize',help="Resize to same peak width. All peaks resize to\
                         300bp for DNase-seq and ATAC-seq, 2000bp for H3K27ac ChIP-seq,\
@@ -84,6 +84,7 @@ def main():
     build_matrix(parser.bigwig, parser.outpre, MODE[int(parser.mode)], parser.db)
     adjust_peak(int(parser.mode),"{0}/diff/whole_table.txt".format(parser.outpre),
                 parser.peak, parser.enhancer)
+
 
 if __name__=="__main__":
     sh=os.system

@@ -50,6 +50,7 @@ class Diff_model(object):
             self._prauc_plot(self.peak_file, "{0}.weightzscore.sorted.txt".format(self.peak_file))
 
     def _prauc_plot(self, peak_file, rerank_file):
+        pass
 
 
 
