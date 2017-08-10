@@ -18,9 +18,9 @@ def peak_process(peaks,bigwigs, mode, resize, outpre):
             print "Unknown error in mode! Exit!"
             sys.exit(1)
         _get_resized(peaks, bigwigs, _width, "{}/resize/raw".format(outpre))
-        sh("export LC_ALL=C; sort -k1,1 -k 2g,2g -k 3g,3g| \
+        sh("export LC_ALL=C; sort -k1,1 -k 2g,2g -k 3g,3g {0}/resize/raw.bed| \
         mergeBed -i stdin -c 4 -o min | sort -k 4g,4g >\
-         {}/resize/process.bed".format(outpre))
+         {0}/resize/process.bed".format(outpre))
         _get_resized("{}/resize/process.bed".format(outpre), bigwigs, _width
                     , "{}/input".format(outpre))
         sh("rm -rf {}/resize".format(outpre))

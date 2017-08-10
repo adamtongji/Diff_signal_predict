@@ -9,7 +9,7 @@ from diff_model import Diff_model
 def prepare_parser():
     description = "%(prog)s -- rerank resized peaks by diff signal"
     usage = """Usage: %(prog)s <-p peak> <--bigwig/--bam bw/bam file> <-m mode> [-e enhancer file -r -o outdir]
-            Example: %(prog)s -p limb.e11.5.bed --bigwig limb.e11.5.bw -m 1 -r -o test
+            Example: %(prog)s -p limb.e11.5.bed --bigwig limb.e11.5.bw -m 1 -r -o test -d mydb_path
             """
     parser = argparse.ArgumentParser("Diffpeak", description=description, usage=usage)
     parser.add_argument('-p','--peak',help="Origin peak file.",dest="peak",required=True)
