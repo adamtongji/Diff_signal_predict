@@ -48,7 +48,7 @@ def _get_resized(peakfile, bigwigs,width, outprefix):
                 summit_p=int((float(summit[0])+float(summit[1]))/2)
                 # out_summit.append([line[0], str(summit_p)])
                 print >>f, "{0}\t{1}\t{2}\t{3}"\
-                    .format(line[0], str(summit_p-width),str(summit_p+width-1),str(_ids))
+                    .format(line[0], str(summit_p-width),str(summit_p+width-1),str(_ids+1))
 
 
 def _check_file(peaklis):
