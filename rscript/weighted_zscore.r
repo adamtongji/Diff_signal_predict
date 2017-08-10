@@ -6,7 +6,7 @@ peak_file = args[2]
 
 test<-read.table(expr_file,sep='\t',header=TRUE)
 condition=colnames(test)
-countdata<-test
+countdata<-floor(test*10)+1
 rownames(countdata)<-paste("peak_",c(1:nrow(countdata)),sep='')
 
 
