@@ -6,8 +6,9 @@ peak_file = args[2]
 
 test<-read.table(expr_file,sep='\t',header=TRUE)
 condition=colnames(test)
-rownames(countdata)<-paste("peak_",c(1:nrow(countdata)),sep='')
 countdata<-floor(test*10)+1
+rownames(countdata)<-paste("peak_",c(1:nrow(countdata)),sep='')
+
 
 coldata<- data.frame(row.names = colnames(countdata), condition)
 dds <- DESeqDataSetFromMatrix(countData = countdata, colData = coldata, design = ~condition)
