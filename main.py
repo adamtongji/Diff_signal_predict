@@ -45,10 +45,10 @@ def arg_validate(parser):
 def build_matrix(bigwig, outpre, mode, db):
     sh("mkdir -p {}/signal/".format(outpre))
     sh("mkdir -p {}/diff/".format(outpre))
-    sh("bigWigAverageOverBed {1} {0}/input.bed stdout | cut -f 5> {0}/signal/input.bed".format(outpre, bigwig))
+    sh("bigWigAverageOverBed {1} {0}/input.bed stdout | cut -f 5 > {0}/signal/input.bed".format(outpre, bigwig))
     db_info = [i.rstrip() for i in open("{}/{}/summary.info".format(db,mode))]
     for _line in db_info:
-        sh("bigWigAverageOverBed {0}/input.bed {2}/{3}/{1}_rep0.10bp.bigWig stdout | cut -f5 > {0}/signal/{1}.bed"\
+        sh("bigWigAverageOverBed {2}/{3}/{1}_rep0.10bp.bigWig {0}/input.bed stdout | cut -f5 > {0}/signal/{1}.bed"\
            .format(outpre, _line, db, mode))
 
     outbed = os.listdir("{0}/signal/".format(outpre))
@@ -80,7 +80,7 @@ def main():
     parser = arg_validate(prepare_parser())
     MODE = ("NULL","ATAC-seq","H3K27ac","DNase-seq")
     sh("mkdir -p {}".format(parser.outpre))
-    peak_process(parser.peak, parser.bigwig, MODE[int(parser.mode)], parser.resize, parser.outpre)
+    # peak_process(parser.peak, parser.bigwig, MODE[int(parser.mode)], parser.resize, parser.outpre)
     build_matrix(parser.bigwig, parser.outpre, MODE[int(parser.mode)], parser.db)
     adjust_peak(int(parser.mode),"{0}/diff/whole_table.txt".format(parser.outpre),
                 parser.peak, parser.enhancer)
