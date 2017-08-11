@@ -24,15 +24,14 @@ class Diff_model(object):
         my_expr = myf[1:]
         my_tis = myf[0]
         my_expr_trans = map(list, zip(*my_expr))
-
-        my_expr_db = my_expr_trans[0:]
+        my_expr_db = my_expr_trans[1:]
         my_expr_input = my_expr_trans[0]
 
         for index, item in enumerate(my_expr_db):
             if item == my_expr_input :
-                print "The input tissue is {}.".format(my_tis[index])
-                # self.tissue = my_tis[index+1]
-                # break
+                print "The input tissue is {}.".format(my_tis[index+1])
+                self.tissue = my_tis[index+1]
+                break
             else:
                 print "The tissue is not found in our backend."
 
