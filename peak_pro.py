@@ -23,7 +23,7 @@ def peak_process(peaks,bigwigs, mode, resize, outpre):
          {0}/resize/process.bed".format(outpre))
         _get_resized("{}/resize/process.bed".format(outpre), bigwigs, _width
                     , "{}/input".format(outpre))
-        sh("rm -rf {}/resize".format(outpre))
+        # sh("rm -rf {}/resize".format(outpre))
 
 
 def _get_resized(peakfile, bigwigs,width, outprefix):

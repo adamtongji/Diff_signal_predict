@@ -16,6 +16,7 @@ class Diff_model(object):
                          "hindbrain_11.5_day","neural_tube_11.5_day","liver_11.5_day","heart_11.5_day")
         self.expr_file = expr_file
         self.peak_file = peak_file
+
         print "Start differential signal recalibration."
 
     def search_db(self):
@@ -37,7 +38,7 @@ class Diff_model(object):
         sh("Rscript $DIFF_PRED/weighted_fc.r {0} {1}".format(self.expr_file,self.peak_file))
         sh("sort -k 4gr,4gr {0}.weightfc.txt >{0}.weightfc.sorted.txt".format(self.peak_file))
         if self.tissue in self.validate:
-            self.enhancer = "/db/enhancer/{}.txt".format(self.tissue)
+            self.enhancer = "db/enhancer/{}.txt".format(self.tissue)
         if self.enhancer:
             self._prauc_plot(self.peak_file, "{0}.weightfc.sorted.txt".format(self.peak_file))
 
@@ -45,7 +46,7 @@ class Diff_model(object):
         sh("Rscript $DIFF_PRED/weighted_zscore.r {0} {1}".format(self.expr_file, self.peak_file))
         sh("sort -k 4gr,4gr {0}.weightzscore.txt >{0}.weightzscore.sorted.txt".format(self.peak_file))
         if self.tissue in self.validate:
-            self.enhancer = "/db/enhancer/{}.txt".format(self.tissue)
+            self.enhancer = "db/enhancer/{}.txt".format(self.tissue)
         if self.enhancer:
             self._prauc_plot(self.peak_file, "{0}.weightzscore.sorted.txt".format(self.peak_file))
 

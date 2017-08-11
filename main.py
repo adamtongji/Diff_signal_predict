@@ -65,8 +65,8 @@ def build_matrix(bigwig, outpre, mode, db):
             print >> f, _line
 
 
-def adjust_peak(mode, expr_file, peak_file,enhancer=''):
-    mymodel = Diff_model(expr_file,peak_file,enhancer)
+def adjust_peak(mode, expr_file, inputfile,enhancer=''):
+    mymodel = Diff_model(expr_file, inputfile,enhancer)
     mymodel.search_db()
     if mode ==3:
         mymodel.weight_fc()
@@ -83,7 +83,7 @@ def main():
     # peak_process(parser.peak, parser.bigwig, MODE[int(parser.mode)], parser.resize, parser.outpre)
     # build_matrix(parser.bigwig, parser.outpre, MODE[int(parser.mode)], parser.db)
     adjust_peak(int(parser.mode),"{0}/diff/whole_table.txt".format(parser.outpre),
-                parser.peak, parser.enhancer)
+                "{0}/input.bed".format(parser.outpre) ,parser.enhancer)
 
 
 if __name__=="__main__":
