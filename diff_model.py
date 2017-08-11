@@ -33,13 +33,14 @@ class Diff_model(object):
             print my_expr_input
             print "item"
             print item
-            break
+            """
             if my_expr_input == item:
                 print "The input tissue is {}.".format(my_tis[index+1])
                 self.tissue = my_tis[index+1]
                 break
             else:
                 print "The tissue is not found in our backend."
+            """
 
     def weight_fc(self):
         sh("Rscript $DIFF_PRED/weighted_fc.r {0} {1}".format(self.expr_file,self.peak_file))
