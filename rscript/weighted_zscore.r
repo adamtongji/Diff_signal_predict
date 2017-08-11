@@ -26,6 +26,6 @@ mycount<-scale(log2(countdata))
 myfc<-mean(mydist[1,])*mycount[,1]-rowMeans(t(t(mycount)*mydist[1,]))
 test2<-read.table(peak_file,sep='\t')
 outtab<-cbind(test2,myfc)
-outf<-paste(expr_file,".weightzscore.txt",sep='')
+outf<-paste(peak_file,".weightzscore.txt",sep='')
 write.table(outtab,file=outf, row.names=F, col.names=F, quote=F, sep='\t')
 
