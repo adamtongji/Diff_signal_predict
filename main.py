@@ -68,6 +68,7 @@ def build_matrix(bigwig, outpre, mode, db):
 def adjust_peak(mode, expr_file, inputfile,enhancer=''):
     mymodel = Diff_model(expr_file, inputfile,enhancer)
     mymodel.search_db()
+    break
     if mode ==3:
         mymodel.weight_fc()
     elif mode == 1 or mode == 2:
