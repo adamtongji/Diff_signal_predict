@@ -24,12 +24,14 @@ class Diff_model(object):
         my_expr = myf[1:]
         my_tis = myf[0]
         my_expr_trans = map(list, zip(*my_expr))
-        print len(my_expr_trans)
+
         my_expr_db = my_expr_trans[1:]
         my_expr_input = my_expr_trans[0]
 
         for index, item in enumerate(my_expr_db):
+            print "myexpr"
             print my_expr_input
+            print "item"
             print item
             break
             if my_expr_input == item:
