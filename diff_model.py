@@ -24,9 +24,12 @@ class Diff_model(object):
         my_expr = myf[1:]
         my_tis = myf[0]
         my_expr_trans = map(list, zip(*my_expr))
+        print len(my_expr_trans)
         my_expr_db = my_expr_trans[1:]
         my_expr_input = my_expr_trans[0]
+        print len(my_expr_input)
         for index, item in enumerate(my_expr_db):
+            print len(item)
             if my_expr_input == item:
                 print "The input tissue is {}.".format(my_tis[index+1])
                 self.tissue = my_tis[index+1]
