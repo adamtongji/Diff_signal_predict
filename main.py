@@ -68,7 +68,7 @@ def build_matrix(bigwig, outpre, mode, db):
 def adjust_peak(mode, expr_file, inputfile,enhancer=''):
     mymodel = Diff_model(expr_file, inputfile,enhancer)
     mymodel.search_db()
-    break
+    """
     if mode ==3:
         mymodel.weight_fc()
     elif mode == 1 or mode == 2:
@@ -76,6 +76,7 @@ def adjust_peak(mode, expr_file, inputfile,enhancer=''):
     else:
         logging.error("Invalid mode! Please choose mode in 1, 2 and 3!")
         sys.exit(1)
+    """
 
 def main():
     parser = arg_validate(prepare_parser())
