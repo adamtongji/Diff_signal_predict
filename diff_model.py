@@ -30,9 +30,9 @@ class Diff_model(object):
 
         for index, item in enumerate(my_expr_db):
             if item == my_expr_input :
-                print "The input tissue is {}.".format(my_tis[index+1])
+                print "The input tissue is {}.".format(my_tis[index])
                 # self.tissue = my_tis[index+1]
-                break
+                # break
             else:
                 print "The tissue is not found in our backend."
 
