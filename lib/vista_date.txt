@@ -1,0 +1,1 @@
+As of 8/12/2017 the database contains information on 2876 in vivo tested elements - 1566 elements with enhancer activity.
