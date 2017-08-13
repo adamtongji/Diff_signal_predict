@@ -32,8 +32,8 @@ class Diff_model(object):
                 print "The input tissue is {}.".format(my_tis[index+1])
                 self.tissue = my_tis[index+1]
                 break
-            else:
-                print "The tissue is not found in our backend."
+        if self.tissue == 'input':
+            print "The tissue is not found in our backend."
 
     def weight_fc(self):
         sh("Rscript $DIFF_PRED/weighted_fc.r {0} {1}".format(self.expr_file,self.peak_file))
@@ -51,7 +51,7 @@ class Diff_model(object):
         if self.enhancer:
             self._prauc_plot(self.peak_file, "{0}.weightzscore.sorted.txt".format(self.peak_file))
 
-    def _prauc_plot(self, peak_file, rerank_file):
+    def _prauc_plot(self, *peak_file):
         pass
 
 
