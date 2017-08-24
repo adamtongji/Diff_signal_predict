@@ -41,7 +41,7 @@ class Diff_model(object):
         if self.tissue in self.validate:
             self.enhancer = "db/enhancer/{}.txt".format(self.tissue)
         if self.enhancer:
-            self._prauc_plot(self.peak_file, "{0}.weightfc.sorted.txt".format(self.peak_file))
+            self._prcurve_plot(self.peak_file, "{0}.weightfc.sorted.txt".format(self.peak_file))
 
     def weight_zscore(self):
         sh("Rscript $DIFF_PRED/weighted_zscore.r {0} {1}".format(self.expr_file, self.peak_file))
@@ -51,7 +51,8 @@ class Diff_model(object):
         if self.enhancer:
             self._prauc_plot(self.peak_file, "{0}.weightzscore.sorted.txt".format(self.peak_file))
 
-    def _prauc_plot(self, *peak_file):
+    def _prcurve_plot(self, *peak_file):
+        # select only top 5
         pass
 
 
