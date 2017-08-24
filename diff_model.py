@@ -9,14 +9,14 @@ sh=os.system
 
 class Diff_model(object):
 
-    def __init__(self,expr_file, peak_file,enhancer=""):
+    def __init__(self,expr_file, peak_file,enhancer="",outpre="./"):
         self.tissue = "input"
         self.enhancer = enhancer
         self.validate = ("cranioface_11.5_day","limb_11.5_day","forebrain_11.5_day","midbrain_11.5_day",
                          "hindbrain_11.5_day","neural_tube_11.5_day","liver_11.5_day","heart_11.5_day")
         self.expr_file = expr_file
         self.peak_file = peak_file
-
+        self.outprefix = outpre
         print "Start differential signal recalibration."
 
     def search_db(self):
@@ -55,10 +55,22 @@ class Diff_model(object):
 
     def _prcurve_plot(self, rawpeak, adjustpeak, enhancers):
         # select only top 5
-        pass
+        self._count_pruac(rawpeak, enhancers, "raw")
+        self._count_pruac(adjustpeak, enhancers, "adjusted")
+        sh("mkdir -p {0}/prauc_tmp/plotdir; cp prauc_tmp/rawpr_table.txt > prauc_tmp/plotdir/raw ;\
+           cp prauc_tmp/rawpr_table.txt > prauc_tmp/plotdir/adjusted")
+        self._plt_prcurve("prauc_tmp/plotdir/")
 
-    def _count_pruac(self, peak, enhancers):
-        sh("$DIFF_PRED/")
+
+    def _count_pruac(self, peak, enhancers, prefix):
+        sh("$DIFF_PRED/shscript/prauc_step1.sh {0} {1} {2} {3}".format(peak, enhancers, prefix))
+        # all files in prauc_tmp folder
+        sh("Rscript $DIFF_PRED/rscript/prauc_step2.r {0}".format(prefix))
+
+
+    def _plt_prcurve(self, pltdir):
+        sh("$DIFF_PRED/rscript/plot_pr_curve.r {0} {1}".format(pltdir, self.outprefix))
+
 
 
 
