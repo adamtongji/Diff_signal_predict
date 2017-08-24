@@ -36,24 +36,29 @@ class Diff_model(object):
             print "The tissue is not found in our backend."
 
     def weight_fc(self):
-        sh("Rscript $DIFF_PRED/weighted_fc.r {0} {1}".format(self.expr_file,self.peak_file))
+        sh("Rscript $DIFF_PRED/rscript/weighted_fc.r {0} {1}".format(self.expr_file,self.peak_file))
         sh("sort -k 4gr,4gr {0}.weightfc.txt >{0}.weightfc.sorted.txt".format(self.peak_file))
         if self.tissue in self.validate:
             self.enhancer = "db/enhancer/{}.txt".format(self.tissue)
         if self.enhancer:
-            self._prcurve_plot(self.peak_file, "{0}.weightfc.sorted.txt".format(self.peak_file))
+            self._prcurve_plot(self.peak_file, "{0}.weightfc.sorted.txt".format(self.peak_file),
+                               self.enhancer)
 
     def weight_zscore(self):
-        sh("Rscript $DIFF_PRED/weighted_zscore.r {0} {1}".format(self.expr_file, self.peak_file))
+        sh("Rscript $DIFF_PRED/rscript/weighted_zscore.r {0} {1}".format(self.expr_file, self.peak_file))
         sh("sort -k 4gr,4gr {0}.weightzscore.txt >{0}.weightzscore.sorted.txt".format(self.peak_file))
         if self.tissue in self.validate:
             self.enhancer = "db/enhancer/{}.txt".format(self.tissue)
         if self.enhancer:
-            self._prauc_plot(self.peak_file, "{0}.weightzscore.sorted.txt".format(self.peak_file))
+            self._prcurve_plot(self.peak_file, "{0}.weightzscore.sorted.txt".format(self.peak_file),
+                               self.enhancer)
 
-    def _prcurve_plot(self, *peak_file):
+    def _prcurve_plot(self, rawpeak, adjustpeak, enhancers):
         # select only top 5
         pass
+
+    def _count_pruac(self, peak, enhancers):
+        sh("$DIFF_PRED/")
 
 
 
