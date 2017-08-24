@@ -7,12 +7,13 @@ library(ROCR)
 library(flux)
 
 args = commandArgs(T)
-# outputdir = args[1]
-prefix = args[1]
 
-summaryfile =paste("prauc_tmp/",prefix,"prauc_val.txt",sep = "")
-pltfile = paste("prauc_tmp/",prefix,"pr_table.txt",sep = "")
-pruac_file=paste("prauc_tmp/",prefix,"prauc.txt",sep = "")
+prefix = args[1]
+outputdir = args[2]
+
+summaryfile =paste(outputdir,"/prauc_val.txt",sep = "")
+pltfile = paste(outputdir,"/",prefix,"pr_table.txt",sep = "")
+pruac_file=paste(outputdir,"/",prefix,"prauc.txt",sep = "")
 plot_pr_table<-read.table(pruac_file, sep='\t')
 colnames(plot_pr_table)=c("rank","label")
 

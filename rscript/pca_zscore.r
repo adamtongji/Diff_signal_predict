@@ -3,6 +3,7 @@ library(DESeq2)
 args = commandArgs(T)
 expr_file = args[1]
 peak_file = args[2]
+outdir = args[3]
 
 test<-read.table(expr_file,sep='\t',header=TRUE)
 condition=colnames(test)
@@ -17,17 +18,15 @@ se <- SummarizedExperiment(log2(counts(pca_dds, normalized=TRUE)),colData=colDat
 
 mydat<-plotPCA( DESeqTransform(se),returnData =TRUE)
 mydist<-as.matrix(dist(mydat[,c(1,2)]))
+outd <- paste(outdir,"/pca_tmp/distance.txt",sep='')
+write.table(mydist[,1],file=outd,sep='\t',row.names=F,col.names=F,quote=F)
 
-#following 2 are for DNase
-mycount<-t(t(countdata)/colSums(countdata)*mean(colSums(countdata)))
-# mycount<-t(t(countdata)*dnase_norm)
-# mycount<-scale(log2(countdata))
-# 第一列数据乘以距离平均值 除以 后面每一列乘以权重后,取行平均值
-myfc<-mean(mydist[1,])*mycount[,1]/rowMeans(t(t(mycount)*mydist[1,]))
-test2<-read.table(peak_file,sep='\t')
-outtab<-cbind(test2[,c(1:3)],myfc)
-outf<-paste(peak_file,".weightfc.txt",sep='')
-# outf的第四列为重新rank后的score。
-write.table(outtab,file=outf, row.names=F, col.names=F, quote=F, sep='\t')
-
-
+mycount<-scale(log2(countdata))
+for (i in c(2:ncol(countdata))){
+    myfc<-mycount[,1]-mycount[,i]
+    test2<-read.table(peak_file,sep='\t')
+    outtab<-cbind(test2[,c(1:3)],myfc)
+    outf<-paste(outdir,"/pca_tmp/pca_peak/tissue",i,"peak.txt",sep='')
+    # outf的第四列为重新rank后的score。
+    write.table(outtab,file=outf, row.names=F, col.names=F, quote=F, sep='\t')
+}

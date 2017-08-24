@@ -87,7 +87,7 @@ def main():
     peak_process(parser.peak, parser.bigwig, MODE[int(parser.mode)], parser.resize, parser.outpre)
     build_matrix(parser.bigwig, parser.outpre, MODE[int(parser.mode)], parser.db)
     adjust_peak(int(parser.mode),"{0}/diff/whole_table.txt".format(parser.outpre),
-                "{0}/input.bed".format(parser.outpre) ,parser.enhancer, parser.outpre)
+                "{0}/input.bed".format(parser.outpre),parser.enhancer, parser.outpre)
 
 
 if __name__=="__main__":

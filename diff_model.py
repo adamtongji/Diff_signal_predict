@@ -43,6 +43,7 @@ class Diff_model(object):
         if self.enhancer:
             self._prcurve_plot(self.peak_file, "{0}.weightfc.sorted.txt".format(self.peak_file),
                                self.enhancer)
+            self._count_pca_fc()
 
     def weight_zscore(self):
         sh("Rscript $DIFF_PRED/rscript/weighted_zscore.r {0} {1}".format(self.expr_file, self.peak_file))
@@ -52,29 +53,57 @@ class Diff_model(object):
         if self.enhancer:
             self._prcurve_plot(self.peak_file, "{0}.weightzscore.sorted.txt".format(self.peak_file),
                                self.enhancer)
+            self._count_pca_zscore()
 
+    # sub main function
     def _prcurve_plot(self, rawpeak, adjustpeak, enhancers):
         # select only top 5
-        self._count_pruac(rawpeak, enhancers, "raw")
-        self._count_pruac(adjustpeak, enhancers, "adjusted")
-        sh("mkdir -p {0}/prauc_tmp/plotdir; cp prauc_tmp/rawpr_table.txt > prauc_tmp/plotdir/raw ;\
-           cp prauc_tmp/rawpr_table.txt > prauc_tmp/plotdir/adjusted")
-        self._plt_prcurve("prauc_tmp/plotdir/")
+        self._count_pruac(rawpeak, enhancers, "raw",self.outprefix)
+        self._count_pruac(adjustpeak, enhancers, "adjusted",self.outprefix)
+        sh("mkdir -p {0}/prauc_tmp/plotdir; cp {0}/prauc_tmp/rawpr_table.txt > {0}/prauc_tmp/plotdir/raw ;\
+           cp {0}/prauc_tmp/rawpr_table.txt > {0}/prauc_tmp/plotdir/adjusted".format(self.outprefix))
+        self._plt_prcurve("{0}/prauc_tmp/plotdir/".format(self.outprefix),self.outprefix)
 
-
-    def _count_pruac(self, peak, enhancers, prefix):
-        sh("$DIFF_PRED/shscript/prauc_step1.sh {0} {1} {2} {3}".format(peak, enhancers, prefix))
+    def _count_pruac(self, peak, enhancers, prefix, outdir):
+        sh("$DIFF_PRED/shscript/prauc_step1.sh {0} {1} {2} {3}".format(peak, enhancers, prefix, outdir))
         # all files in prauc_tmp folder
-        sh("Rscript $DIFF_PRED/rscript/prauc_step2.r {0}".format(prefix))
+        sh("Rscript $DIFF_PRED/rscript/prauc_step2.r {0} {1}".format(prefix, outdir))
+
+    def _count_pca_fc(self):
+        _outdir = "{0}/pca_tmp/".format(self.outprefix)
+        sh("mkdir -p {0}".format(_outdir))
+        sh("mkdir -p {0}/pca_peak/".format(_outdir))
+        sh("mkdir -p {0}/pca_pr/".format(_outdir))
+        sh("Rscript $DIFF_PRED/rscript/pca_fc.r {0} {1} {2}"\
+           .format(self.expr_file, self.peak_file, _outdir))
+        peakf = os.listdir("{0}/pca_peak/".format(_outdir))
+        for index, item in enumerate(peakf):
+            self._count_pruac("{0}/pca_peak/{1}".format(_outdir,item),
+                              self.enhancer,"tis{0}".format(str(index+2)),
+                              "{0}/pca_pr/".format(_outdir))
+
+    def _count_pca_zscore(self):
+        _outdir = "{0}/pca_tmp/".format(self.outprefix)
+        sh("mkdir -p {0}".format(_outdir))
+        sh("mkdir -p {0}/pca_peak/".format(_outdir))
+        sh("mkdir -p {0}/pca_pr/".format(_outdir))
+        sh("Rscript $DIFF_PRED/rscript/pca_zscore.r {0} {1} {2}"\
+           .format(self.expr_file, self.peak_file, _outdir))
+        peakf = os.listdir("{0}/pca_peak/".format(_outdir))
+        for index, item in enumerate(peakf):
+            self._count_pruac("{0}/pca_peak/{1}".format(_outdir,item),
+                              self.enhancer,"tis{0}".format(str(index+2)),
+                              "{0}/pca_pr/".format(_outdir))
+        sh("mkdir -p {0}/plotdir/ ;cp {0}/distance.txt {0}/plotdir/distance.txt; \
+           cp {0}/pca_pr/prauc_val.txt".format(_outdir))
 
 
-    def _plt_prcurve(self, pltdir):
-        sh("$DIFF_PRED/rscript/plot_pr_curve.r {0} {1}".format(pltdir, self.outprefix))
+    def _plt_scatter(self,pltdir, outdir):
+        sh("$DIFF_PRED/rscript/plot_scatter.r {0} {1}".format(pltdir, outdir))
 
-
-
-
-
+    # sub function
+    def _plt_prcurve(self, pltdir, outdir):
+        sh("$DIFF_PRED/rscript/plot_pr_curve.r {0} {1}".format(pltdir, outdir))
 
 
 
