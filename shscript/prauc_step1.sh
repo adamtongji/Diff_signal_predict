@@ -15,7 +15,7 @@ output3="${outdir}/${prefix}false.positive.bed"
 output4="${outdir}/${prefix}true.negative.bed"
 output="${outdir}/${prefix}prauc.txt"
 
-total_peaks=$(cat $peaks | wc -l)
+total_peaks=$(cat $peak_file | wc -l)
 total_positive=$( cat ${outdir}/pos_enhancer.txt | wc -l )
 total_negative=$( cat ${outdir}/neg_enhancer.txt | wc -l )
 

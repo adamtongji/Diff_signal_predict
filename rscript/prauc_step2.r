@@ -11,7 +11,7 @@ args = commandArgs(T)
 prefix = args[1]
 outputdir = args[2]
 
-summaryfile =paste(outputdir,"/prauc_val.txt",sep = "")
+summaryfile = paste(outputdir,"/prauc_val.txt",sep = "")
 pltfile = paste(outputdir,"/",prefix,"pr_table.txt",sep = "")
 pruac_file=paste(outputdir,"/",prefix,"prauc.txt",sep = "")
 plot_pr_table<-read.table(pruac_file, sep='\t')
