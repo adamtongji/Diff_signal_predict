@@ -81,6 +81,10 @@ class Diff_model(object):
             self._count_pruac("{0}/pca_peak/{1}".format(_outdir,item),
                               self.enhancer,"tis{0}".format(str(index+2)),
                               "{0}/pca_pr/".format(_outdir))
+        sh("mkdir -p {0}/plotdir/ ;cp {0}/distance.txt {0}/plotdir/distance.txt; \
+            cp {0}/pca_pr/prauc_val.txt {0}/plotdir/prauc_val.txt".format(_outdir))
+        # output the figure to main directory
+        self._plt_scatter("{0}/plotdir/".format(_outdir), self.outprefix)
 
     def _count_pca_zscore(self):
         _outdir = "{0}/pca_tmp/".format(self.outprefix)
