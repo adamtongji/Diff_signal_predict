@@ -57,12 +57,13 @@ def build_matrix(bigwig, outpre, mode, db):
     outbed = os.listdir("{0}/signal/".format(outpre))
     out = []
     _tmp = [i.rstrip() for i in open("{0}/signal/{1}".format(outpre, "input.bed"))]
-    _tmp2 = ["input.bed"] + _tmp
+    _tmp2 = ["input"] + _tmp
     out.append(_tmp2)
     for _line in outbed:
         if _line.endswith("bed") and _line!="input.bed":
             _tmp = [i.rstrip() for i in open("{0}/signal/{1}".format(outpre,_line))]
-            _tmp2 = [_line] + _tmp
+
+            _tmp2 = [_line[:-4]] + _tmp
             out.append(_tmp2)
     out2 = map(list, zip(*out))
     with open("{0}/diff/whole_table.txt".format(outpre),"w") as f:
@@ -88,7 +89,7 @@ def main():
     MODE = ("NULL","ATAC-seq","H3K27ac","DNase-seq")
     sh("mkdir -p {}".format(parser.outpre))
     # peak_process(parser.peak, parser.bigwig, MODE[int(parser.mode)], parser.resize, parser.outpre)
-    # build_matrix(parser.bigwig, parser.outpre, MODE[int(parser.mode)], parser.db)
+    build_matrix(parser.bigwig, parser.outpre, MODE[int(parser.mode)], parser.db)
     adjust_peak(int(parser.mode),"{0}/diff/whole_table.txt".format(parser.outpre),
                 "{0}/input.bed".format(parser.outpre),parser.enhancer, parser.outpre)
 

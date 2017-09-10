@@ -39,7 +39,7 @@ class Diff_model(object):
         sh("Rscript $DIFF_PRED/rscript/weighted_fc.r {0} {1}".format(self.expr_file,self.peak_file))
         sh("sort -k 4gr,4gr {0}.weightfc.txt >{0}.weightfc.sorted.txt".format(self.peak_file))
         if self.tissue in self.validate:
-            self.enhancer = "db/enhancer/{}.txt".format(self.tissue)
+            self.enhancer = "$DIFF_PRED/lib/enhancer_db/{0}_enhancer.txt".format(self.tissue)
         if self.enhancer:
             self._prcurve_plot(self.peak_file, "{0}.weightfc.sorted.txt".format(self.peak_file),
                                self.enhancer)
@@ -49,7 +49,7 @@ class Diff_model(object):
         sh("Rscript $DIFF_PRED/rscript/weighted_zscore.r {0} {1}".format(self.expr_file, self.peak_file))
         sh("sort -k 4gr,4gr {0}.weightzscore.txt >{0}.weightzscore.sorted.txt".format(self.peak_file))
         if self.tissue in self.validate:
-            self.enhancer = "db/enhancer/{}.txt".format(self.tissue)
+            self.enhancer = "$DIFF_PRED/lib/enhancer_db/{0}_enhancer.txt".format(self.tissue)
         if self.enhancer:
             self._prcurve_plot(self.peak_file, "{0}.weightzscore.sorted.txt".format(self.peak_file),
                                self.enhancer)
