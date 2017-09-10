@@ -60,8 +60,8 @@ class Diff_model(object):
         # select only top 5
         self._count_pruac(rawpeak, enhancers, "raw",self.outprefix)
         self._count_pruac(adjustpeak, enhancers, "adjusted",self.outprefix)
-        sh("mkdir -p {0}/prauc_tmp/plotdir; cp {0}/prauc_tmp/rawpr_table.txt {0}/prauc_tmp/plotdir/raw ;\
-           cp {0}/prauc_tmp/rawpr_table.txt {0}/prauc_tmp/plotdir/adjusted".format(self.outprefix))
+        sh("mkdir -p {0}/prauc_tmp/plotdir; cp {0}/rawpr_table.txt {0}/prauc_tmp/plotdir/raw ;\
+           cp {0}/adjustedpr_table.txt {0}/prauc_tmp/plotdir/adjusted".format(self.outprefix))
         self._plt_prcurve("{0}/prauc_tmp/plotdir/".format(self.outprefix),self.outprefix)
 
     def _count_pruac(self, peak, enhancers, prefix, outdir):
