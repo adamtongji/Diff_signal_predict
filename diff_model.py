@@ -95,15 +95,21 @@ class Diff_model(object):
                               self.enhancer,"tis{0}".format(str(index+2)),
                               "{0}/pca_pr/".format(_outdir))
         sh("mkdir -p {0}/plotdir/ ;cp {0}/distance.txt {0}/plotdir/distance.txt; \
-           cp {0}/pca_pr/prauc_val.txt".format(_outdir))
+           cp {0}/pca_pr/prauc_val.txt {0}/plotdir/prauc_val.txt".format(_outdir))
+        # output the figure to main directory
+        self._plt_scatter("{0}/plotdir/".format(_outdir),self.outprefix)
+
 
 
     def _plt_scatter(self,pltdir, outdir):
-        sh("$DIFF_PRED/rscript/plot_scatter.r {0} {1}".format(pltdir, outdir))
+        sh("$DIFF_PRED/rscript/plot_scatter.r {0} {1}/improvement.pdf".format(pltdir, outdir))
 
     # sub function
     def _plt_prcurve(self, pltdir, outdir):
         sh("$DIFF_PRED/rscript/plot_pr_curve.r {0} {1}".format(pltdir, outdir))
+
+
+
 
 
 
