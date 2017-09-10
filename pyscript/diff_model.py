@@ -67,6 +67,7 @@ class Diff_model(object):
     def _count_pruac(self, peak, enhancers, prefix, outdir):
         sh("bash $DIFF_PRED/shscript/prauc_step1.sh {0} {1} {2} {3}".format(peak, enhancers, prefix, outdir))
         # all files in prauc_tmp folder
+        print "Prefix is {}".format(prefix)
         sh("Rscript $DIFF_PRED/rscript/prauc_step2.r {0} {1}".format(prefix, outdir))
 
     def _count_pca_fc(self):
