@@ -65,7 +65,7 @@ class Diff_model(object):
         self._plt_prcurve("{0}/prauc_tmp/plotdir/".format(self.outprefix),self.outprefix)
 
     def _count_pruac(self, peak, enhancers, prefix, outdir):
-        sh("$DIFF_PRED/shscript/prauc_step1.sh {0} {1} {2} {3}".format(peak, enhancers, prefix, outdir))
+        sh("bash $DIFF_PRED/shscript/prauc_step1.sh {0} {1} {2} {3}".format(peak, enhancers, prefix, outdir))
         # all files in prauc_tmp folder
         sh("Rscript $DIFF_PRED/rscript/prauc_step2.r {0} {1}".format(prefix, outdir))
 
