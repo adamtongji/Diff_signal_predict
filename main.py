@@ -1,10 +1,13 @@
 #!/usr/bin/env python
 
-import os,sys
 import argparse
 import logging
-from peak_pro import peak_process
-from diff_model import Diff_model
+import os
+import sys
+
+from pyscript.diff_model import Diff_model
+from pyscript.peak_pro import peak_process
+
 
 def prepare_parser():
     description = "%(prog)s -- rerank resized peaks by diff signal"
@@ -18,7 +21,7 @@ def prepare_parser():
     # group.add_argument('--bam',help="Origin bam file",dest="bam",action="store")
     parser.add_argument('--bigwig',help="Origin bigwig file", action="store",dest="bigwig",
                         required=True)
-    parser.add_argument('-m','--mode',help="1:ATAC-seq; 2:H3K27ac ChIP-seq; 3:DNase-seq",
+    parser.add_argument('-m','--mode',help="Please select 1, 2 or 3. 1:ATAC-seq; 2:H3K27ac ChIP-seq; 3:DNase-seq",
                         dest="mode",action="store", type=int, required=True)
     parser.add_argument('-e','--enhancer',help="User defined experiment validated enhancer set",
                         dest="enhancer",action="store")

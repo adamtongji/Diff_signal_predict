@@ -5,12 +5,15 @@ sh=os.system
 
 
 def peak_process(peaks,bigwigs, mode, resize, outpre):
+    blacklist_file = "mm10.blacklist.bed.gz"
+    tss_file = "mm10_tss.bed"
     if not resize:
         awk_args = '{printf "%s\\t%d\\t%d\\t%d\\n",$1,$2,$3,NR}'
         # Need revise with more genome versions.
         ##
-        sh("awk '{0}' {1} | intersectBed -a stdin -b $DIFF_pred/lib/genome_file/tss.bed -v\
-         | intersectBed -a stdin -b $DIFF_pred/lib/genome_file/blacklist.bed -v > {2}/input.bed".format(awk_args,peaks,outpre))
+        sh("awk '{0}' {1} | intersectBed -a stdin -b $DIFF_pred/lib/genome_file/{4} -v\
+         | intersectBed -a stdin -b $DIFF_pred/lib/genome_file/{3} -v > {2}/input.bed"\
+           .format(awk_args,peaks,outpre,blacklist_file, tss_file))
     else:
         sh("mkdir -p {}/resize/".format(outpre))
         if mode=="ATAC-seq" or mode=="DNase-seq":
@@ -22,16 +25,16 @@ def peak_process(peaks,bigwigs, mode, resize, outpre):
             sys.exit(1)
         _get_resized(peaks, bigwigs, _width, "{}/resize/raw".format(outpre))
         sh("export LC_ALL=C; sort -k1,1 -k 2g,2g -k 3g,3g {0}/resize/raw.bed| \
-        mergeBed -i stdin -c 4 -o min | sort -k 4g,4g | intersectBed -a stdin -b $DIFF_pred/lib/genome_file/tss.bed -v\
-         | intersectBed -a stdin -b $DIFF_pred/lib/genome_file/blacklist.bed -v >\
-         {0}/resize/process.bed".format(outpre))
+        mergeBed -i stdin -c 4 -o min | sort -k 4g,4g | intersectBed -a stdin -b $DIFF_pred/lib/genome_file/{2} -v\
+         | intersectBed -a stdin -b $DIFF_pred/lib/genome_file/{1} -v >\
+         {0}/resize/process.bed".format(outpre, blacklist_file, tss_file))
         _get_resized("{}/resize/process.bed".format(outpre), bigwigs, _width
                     , "{}/input".format(outpre))
+        # Delete after debugging
         # sh("rm -rf {}/resize".format(outpre))
 
 
 def _get_resized(peakfile, bigwigs,width, outprefix):
-
     # Input is peak file name which is sort by rank
     peaklis =[i.rstrip().split('\t') for i in open(peakfile)]
     peaklist = _check_file(peaklis)
