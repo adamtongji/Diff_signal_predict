@@ -34,11 +34,15 @@ for (myf in allf){
     alltab<-rbind(alltab, intab)
 }
 colnames(alltab)<-c("x_value","y_value","sample")
-A=alltab
-A[is.na(A)] <- 1
-aucs<-auc(A[,1][1:sum(A[,1] <= 1)], A[,2][1:sum(A[,1] <= 1)])
-label<-paste(sample,aucs,sep=":")
-alltab$label <- label
+label=c()
+for (samp in unique(alltab$sample)){
+    A=subset(alltab, sample==samp)
+    A[is.na(A)] <- 1
+    aucs<-auc(A[,1][1:sum(A[,1] <= 1)], A[,2][1:sum(A[,1] <= 1)])
+    tmp<-paste(sample,aucs,sep=":")
+    label<-c(label,tmp)
+}
+
 p<-ggplot(alltab,aes(x=x_value,y=y_value,col=label,group=label))+geom_line()
 
 q<-p+xlab("recall")+ylab("precision")+mytemp+scale_color_manual(values =c(linecol(2)))+theme(legend.title=element_blank())
