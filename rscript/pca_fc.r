@@ -26,6 +26,8 @@ for (i in c(2:ncol(countdata))){
     myfc<-mycount[,1]/mycount[,i]
     test2<-read.table(peak_file,sep='\t')
     outtab<-cbind(test2[,c(1:3)],myfc)
+    colnames(outtab)<-c("chrom","start","end","val")
+    outtab<-outtab[order(outtab$val),]
     outf<-paste(outdir,"/pca_peak/tissue",i,"peak.txt",sep='')
     # outf的第四列为重新rank后的score。
     write.table(outtab,file=outf, row.names=F, col.names=F, quote=F, sep='\t')
