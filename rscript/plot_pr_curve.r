@@ -29,7 +29,7 @@ allf = dir(pltdir)
 alltab = c()
 
 for (myf in allf){
-    intmp =read.table(myf, sep='\t')
+    intmp =read.table(paste(pltdir,"/",myf,sep=''), sep='\t')
     intab = cbind(intmp, myf)
     alltab<-rbind(alltab, intab)
 }
