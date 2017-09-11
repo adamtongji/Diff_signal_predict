@@ -18,7 +18,7 @@ se <- SummarizedExperiment(log2(counts(pca_dds, normalized=TRUE)),colData=colDat
 
 mydat<-plotPCA( DESeqTransform(se),returnData =TRUE)
 mydist<-as.matrix(dist(mydat[,c(1,2)]))
-outd <- paste(outdir,"/pca_tmp/distance.txt",sep='')
+outd <- paste(outdir,"/distance.txt",sep='')
 write.table(mydist[,1],file=outd,sep='\t',row.names=F,col.names=F,quote=F)
 
 mycount<-t(t(countdata)/colSums(countdata)*mean(colSums(countdata)))
@@ -26,7 +26,7 @@ for (i in c(2:ncol(countdata))){
     myfc<-mycount[,1]/mycount[,i]
     test2<-read.table(peak_file,sep='\t')
     outtab<-cbind(test2[,c(1:3)],myfc)
-    outf<-paste(outdir,"/pca_tmp/pca_peak/tissue",i,"peak.txt",sep='')
+    outf<-paste(outdir,"/pca_peak/tissue",i,"peak.txt",sep='')
     # outf的第四列为重新rank后的score。
     write.table(outtab,file=outf, row.names=F, col.names=F, quote=F, sep='\t')
 }
