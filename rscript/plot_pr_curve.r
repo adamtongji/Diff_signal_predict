@@ -39,7 +39,7 @@ for (samp in unique(alltab$sample)){
     A=subset(alltab, sample==samp)
     A[is.na(A)] <- 1
     aucs<-auc(A[,1][1:sum(A[,1] <= 1)], A[,2][1:sum(A[,1] <= 1)])
-    tmp<-paste(sample,aucs,sep=":")
+    tmp<-paste(alltab$sample,aucs,sep=":")
     label<-c(label,tmp)
 }
 
