@@ -4,7 +4,10 @@ import numpy as np
 import os
 from scipy.stats.mstats import zscore
 
-sh=os.system
+def sh(args):
+    f = open("commands.txt","a")
+    print >> f, args
+    return os.system(args)
 
 
 class Diff_model(object):

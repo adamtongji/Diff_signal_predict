@@ -41,3 +41,4 @@ p<-ggplot(alltab,aes(x=x_value,y=y_value,col=sample,group=sample))+geom_line()
 q<-p+xlab("recall")+ylab("precision")+mytemp+scale_color_manual(values =c(linecol(2)))+theme(legend.title=element_blank())
 outfile=paste(outdir,"/contrast_prcurve.pdf",sep='')
 ggsave(q,file=outfile,width=5.5,height = 3)
+

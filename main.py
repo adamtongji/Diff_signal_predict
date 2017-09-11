@@ -9,6 +9,12 @@ from pyscript.diff_model import Diff_model
 from pyscript.peak_pro import peak_process
 
 
+def sh(args):
+    f = open("commands.txt","a")
+    print >> f, args
+    return os.system(args)
+
+
 def prepare_parser():
     description = "%(prog)s -- rerank resized peaks by diff signal"
     usage = """Usage: %(prog)s <-p peak> <--bigwig/--bam bw/bam file> <-m mode> [-e enhancer file -r -o outdir]
@@ -95,6 +101,5 @@ def main():
 
 
 if __name__=="__main__":
-    sh=os.system
     main()
 

@@ -1,7 +1,11 @@
 from bx.bbi.bigwig_file import BigWigFile
 import os,sys
 
-sh=os.system
+def sh(args):
+    f = open("commands.txt","a")
+    print >> f, args
+    return os.system(args)
+
 
 
 def peak_process(peaks,bigwigs, mode, resize, outpre):
