@@ -23,7 +23,7 @@ outputfile = args[2]
 dist_file = paste(inputdir,"/distance.txt",sep='')
 prauc_file = paste(inputdir,"/prauc_val.txt",sep='')
 
-dists <- read.table(dist_file,sep='\t')
+dists <- read.table(dist_file,sep='\t',header=T)
 praucs <-read.table(prauc_file,sep='\t')
 praucs <-data.frame(praucs)-data.frame(praucs)[1,1]
 my_tab<-data.frame(cbind(dists,praucs))
