@@ -10,8 +10,6 @@ from pyscript.peak_pro import peak_process
 
 
 def sh(args):
-    f = open("commands.txt","a")
-    print >> f, args
     return os.system(args)
 
 

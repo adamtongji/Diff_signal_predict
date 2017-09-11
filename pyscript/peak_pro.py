@@ -2,8 +2,6 @@ from bx.bbi.bigwig_file import BigWigFile
 import os,sys
 
 def sh(args):
-    f = open("commands.txt","a")
-    print >> f, args
     return os.system(args)
 
 

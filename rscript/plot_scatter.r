@@ -25,7 +25,7 @@ prauc_file = paste(inputdir,"/prauc_val.txt",sep='')
 
 dists <- read.table(dist_file,sep='\t',header=T)
 praucs <-read.table(prauc_file,sep='\t')
-prauc_file <- prauc_file[,2]
+praucs <- praucs[,2]
 praucs <-data.frame(praucs)-data.frame(praucs)[1,1]
 my_tab<-data.frame(cbind(dists,praucs))
 colnames(my_tab)<-c("samples","distance","prauc")

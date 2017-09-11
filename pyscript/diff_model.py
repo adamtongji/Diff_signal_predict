@@ -5,8 +5,6 @@ import os
 from scipy.stats.mstats import zscore
 
 def sh(args):
-    f = open("commands.txt","a")
-    print >> f, args
     return os.system(args)
 
 
@@ -78,9 +76,12 @@ class Diff_model(object):
         sh("mkdir -p {0}".format(_outdir))
         sh("mkdir -p {0}/pca_peak/".format(_outdir))
         sh("mkdir -p {0}/pca_pr/".format(_outdir))
+        if os.path.isfile("{0}/pca_pr/prauc_val.txt".format(_outdir)):
+            sh("rm {0}/pca_pr/prauc_val.txt".format(_outdir))
         sh("Rscript $DIFF_PRED/rscript/pca_fc.r {0} {1} {2}"\
            .format(self.expr_file, self.peak_file, _outdir))
         peakf = os.listdir("{0}/pca_peak/".format(_outdir))
+
         for index, item in enumerate(peakf):
             self._count_pruac("{0}/pca_peak/{1}".format(_outdir,item),
                               self.enhancer,"tis{0}".format(str(index+2)),
@@ -95,9 +96,12 @@ class Diff_model(object):
         sh("mkdir -p {0}".format(_outdir))
         sh("mkdir -p {0}/pca_peak/".format(_outdir))
         sh("mkdir -p {0}/pca_pr/".format(_outdir))
+        if os.path.isfile("{0}/pca_pr/prauc_val.txt".format(_outdir)):
+            sh("rm {0}/pca_pr/prauc_val.txt".format(_outdir))
         sh("Rscript $DIFF_PRED/rscript/pca_zscore.r {0} {1} {2}"\
            .format(self.expr_file, self.peak_file, _outdir))
         peakf = os.listdir("{0}/pca_peak/".format(_outdir))
+
         for index, item in enumerate(peakf):
             self._count_pruac("{0}/pca_peak/{1}".format(_outdir,item),
                               self.enhancer,"tis{0}".format(str(index+2)),
