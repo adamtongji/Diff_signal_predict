@@ -25,10 +25,9 @@ prauc_file = paste(inputdir,"/prauc_val.txt",sep='')
 
 dists <- read.table(dist_file,sep='\t',header=T)
 praucs <-read.table(prauc_file,sep='\t')
-praucs <- praucs[,2]
-praucs <-data.frame(praucs)-data.frame(praucs)[1,1]
-my_tab<-data.frame(cbind(dists,praucs))
-colnames(my_tab)<-c("samples","distance","prauc")
+praucs[,2] <-data.frame(praucs)[,2]-data.frame(praucs)[1,2]
+my_tab<-data.frame(cbind(praucs,dists))
+colnames(my_tab)<-c("samples","prauc","distance")
 p<-ggplot(my_tab,aes(x=distance, y=prauc))+geom_point()+mytemp+xlab("distance")+ylab("prauc diff")
 
 ggsave(p,filename=outputfile,height=5,width=6)
