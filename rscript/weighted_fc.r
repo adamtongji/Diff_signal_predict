@@ -21,6 +21,7 @@ mydist<-as.matrix(dist(mydat[,c(1,2)]))
 #following 2 are for DNase
 # !! Temporary not normalize sequencing depth !!!
 # mycount<-t(t(countdata)/colSums(countdata)*mean(colSums(countdata)))
+mycount<-countdata
 # mycount<-t(t(countdata)*dnase_norm)
 # mycount<-scale(log2(countdata))
 # 第一列数据乘以距离平均值 除以 后面每一列乘以权重后,取行平均值
