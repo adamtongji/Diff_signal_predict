@@ -79,9 +79,9 @@ def build_matrix(bigwig, outpre, mode, db):
 def adjust_peak(mode, expr_file, inputfile,enhancer='', outpre="./"):
     mymodel = Diff_model(expr_file, inputfile,enhancer,outpre)
     mymodel.search_db()
-    if mode ==3:
+    if mode == 1 or mode ==3:
         mymodel.weight_fc()
-    elif mode == 1 or mode == 2:
+    elif mode == 2:
         mymodel.weight_zscore()
     else:
         logging.error("Invalid mode! Please choose mode in 1, 2 and 3!")
@@ -92,8 +92,8 @@ def main():
     parser = arg_validate(prepare_parser())
     MODE = ("NULL","ATAC-seq","H3K27ac","DNase-seq")
     sh("mkdir -p {}".format(parser.outpre))
-    peak_process(parser.peak, parser.bigwig, MODE[int(parser.mode)], parser.resize, parser.outpre)
-    build_matrix(parser.bigwig, parser.outpre, MODE[int(parser.mode)], parser.db)
+    # peak_process(parser.peak, parser.bigwig, MODE[int(parser.mode)], parser.resize, parser.outpre)
+    # build_matrix(parser.bigwig, parser.outpre, MODE[int(parser.mode)], parser.db)
     adjust_peak(int(parser.mode),"{0}/diff/whole_table.txt".format(parser.outpre),
                 "{0}/input.bed".format(parser.outpre),parser.enhancer, parser.outpre)
 
