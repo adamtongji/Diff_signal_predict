@@ -52,7 +52,7 @@ def arg_validate(parser):
 def build_matrix(bigwig, outpre, mode, db):
     sh("mkdir -p {}/signal/".format(outpre))
     sh("mkdir -p {}/diff/".format(outpre))
-    sh("bigWigAverageOverBed {1} {0}/input.bed stdout | cut -f 5 > {0}/signal/input.bed".format(outpre, bigwig))
+    sh("bigWigAverageOverBed {1} {0}/input.bed stdout | sort -k1g | cut -f 5 > {0}/signal/input.bed".format(outpre, bigwig))
     db_info = [i.rstrip() for i in open("{}/{}/summary.info".format(db,mode))]
     for _line in db_info:
         sh("bigWigAverageOverBed {2}/{3}/{1}_rep0.10bp.bigWig {0}/input.bed stdout | sort -k1g | cut -f5 > {0}/signal/{1}.bed"\
