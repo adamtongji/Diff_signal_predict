@@ -33,7 +33,7 @@ for (myf in allf){
     A = intmp
     A[is.na(A)] <- 1
     aucs<-auc(A[,1][1:sum(A[,1] <= 1)], A[,2][1:sum(A[,1] <= 1)])
-    label<-paste(myf,aucs,sep=":")
+    label<-paste(myf,round(aucs,2),sep=":")
 
     intab = cbind(intmp, myf, label)
     alltab<-rbind(alltab, intab)
