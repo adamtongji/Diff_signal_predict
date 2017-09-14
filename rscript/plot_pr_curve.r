@@ -30,20 +30,17 @@ alltab = c()
 
 for (myf in allf){
     intmp =read.table(paste(pltdir,"/",myf,sep=''), sep='\t')
-    intab = cbind(intmp, myf)
+    A = intmp
+    A[is.na(A)] <- 1
+    aucs<-auc(A[,1][1:sum(A[,1] <= 1)], A[,2][1:sum(A[,1] <= 1)])
+    label<-paste(myf,aucs,sep=":")
+
+    intab = cbind(intmp, myf, label)
     alltab<-rbind(alltab, intab)
 }
-colnames(alltab)<-c("x_value","y_value","sample")
-# label=c()
-# for (samp in unique(alltab$sample)){
-#     A=subset(alltab, sample==samp)
-#     A[is.na(A)] <- 1
-#     aucs<-auc(A[,1][1:sum(A[,1] <= 1)], A[,2][1:sum(A[,1] <= 1)])
-#     tmp<-paste(alltab$sample,aucs,sep=":")
-#     label<-c(label,tmp)
-# }
+colnames(alltab)<-c("x_value","y_value","sample","label")
 
-p<-ggplot(alltab,aes(x=x_value,y=y_value,col=sample,group=sample))+geom_line()
+p<-ggplot(alltab,aes(x=x_value,y=y_value,col=label,group=label))+geom_line()
 
 q<-p+xlab("recall")+ylab("precision")+mytemp+scale_color_manual(values =c(linecol(2)))+theme(legend.title=element_blank())
 outfile=paste(outdir,"/contrast_prcurve.pdf",sep='')

@@ -79,9 +79,9 @@ def build_matrix(bigwig, outpre, mode, db):
 def adjust_peak(mode, expr_file, inputfile,enhancer='', outpre="./"):
     mymodel = Diff_model(expr_file, inputfile,enhancer,outpre)
     mymodel.search_db()
-    if mode == 1 or mode ==3:
+    if mode ==3:
         mymodel.weight_fc()
-    elif mode == 2:
+    elif mode == 1 or mode == 2:
         mymodel.weight_zscore()
     else:
         logging.error("Invalid mode! Please choose mode in 1, 2 and 3!")

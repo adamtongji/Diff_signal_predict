@@ -29,5 +29,6 @@ praucs[,2] <- praucs[,2]-as.numeric(praucs[1,2])
 my_tab<-data.frame(cbind(praucs,dists))
 colnames(my_tab)<-c("samples","prauc","distance")
 p<-ggplot(my_tab,aes(x=distance, y=prauc))+geom_point()+mytemp+xlab("distance")+ylab("prauc diff")
-
+cor_value <-cor.test()
+q<-p+ge
 ggsave(p,filename=outputfile,height=5,width=6)
