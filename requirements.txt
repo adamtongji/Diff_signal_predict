@@ -1,3 +1,18 @@
 
 # R
+R
 dplyr
+DESeq2
+ggplot2
+RColorBrewer
+gridExtra
+ggthemes
+reshape2
+ROCR
+flux
+
+
+# Python
+numpy
+scipy
+bx-python
