@@ -2,7 +2,7 @@
 # R
 R
 r-dplyr
-DESeq2
+bioconductor-deseq2
 ggplot2
 RColorBrewer
 gridExtra
