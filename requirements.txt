@@ -1,13 +1,14 @@
 
 # R
 R
-r-dplyr
+# r-dplyr
 bioconductor-deseq2
-ggplot2
-RColorBrewer
-gridExtra
-ggthemes
-reshape2
+r-ggplot2
+# RColorBrewer
+# gridExtra
+# ggthemes
+# reshape2
+gplots
 ROCR
 flux
 

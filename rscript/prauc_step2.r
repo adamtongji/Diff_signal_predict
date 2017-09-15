@@ -1,8 +1,5 @@
 rm(list=ls())
 library(ggplot2)
-library(RColorBrewer)
-library(grid)
-library(dplyr)
 library(ROCR)
 library(flux)
 
