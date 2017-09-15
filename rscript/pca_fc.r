@@ -7,7 +7,7 @@ outdir = args[3]
 
 test<-read.table(expr_file,sep='\t',header=TRUE)
 condition=colnames(test)
-countdata<-floor(test*100)+1
+countdata<-floor(test*10)+1
 rownames(countdata)<-paste("peak_",c(1:nrow(countdata)),sep='')
 
 
@@ -22,8 +22,8 @@ outd <- paste(outdir,"/distance.txt",sep='')
 write.table(mydist[,1],file=outd,sep='\t',row.names=F,col.names=F,quote=F)
 
 # !! Temporary not normalize sequencing depth !!!
-mycount<-t(t(countdata)/colSums(countdata)*mean(colSums(countdata)))
-# mycount<-countdata
+# mycount<-t(t(countdata)/colSums(countdata)*mean(colSums(countdata)))
+mycount<-countdata
 
 for (i in c(2:ncol(countdata))){
     myfc<-mycount[,1]/mycount[,i]
