@@ -1,7 +1,7 @@
 
 # R
 R
-dplyr
+r-dplyr
 DESeq2
 ggplot2
 RColorBrewer
