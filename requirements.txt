@@ -4,6 +4,7 @@ R
 # r-dplyr
 bioconductor-deseq2
 r-ggplot2
+r-gtable
 # RColorBrewer
 # gridExtra
 # ggthemes
@@ -17,3 +18,7 @@ flux
 numpy
 scipy
 bx-python
+#pip install --no-cache bx-python==0.7.1
+
+# software
+bigWigAverageBed
