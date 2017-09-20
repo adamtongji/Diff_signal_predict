@@ -5,8 +5,8 @@ import os
 from scipy.stats.mstats import zscore
 
 def sh(args):
-    f = open("cmd.txt","w")
-    print >> f, args
+    # f = open("cmd.txt","w")
+    # print >> f, args
     return os.system(args)
 
 
