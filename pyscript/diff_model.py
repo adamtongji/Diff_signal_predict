@@ -49,12 +49,12 @@ class Diff_model(object):
     def weight_zscore(self):
         sh("Rscript $DIFF_PRED/rscript/weighted_zscore.r {0} {1}".format(self.expr_file, self.peak_file))
         sh("sort -k 4gr,4gr {0}.weightzscore.txt >{0}.weightzscore.sorted.txt".format(self.peak_file))
-        if self.tissue in self.validate:
-            self.enhancer = "$DIFF_PRED/lib/enhancer_db/{0}_enhancer.txt".format(self.tissue)
-        if self.enhancer:
-            self._prcurve_plot(self.peak_file, "{0}.weightzscore.sorted.txt".format(self.peak_file),
-                               self.enhancer)
-            self._count_pca_zscore()
+        # if self.tissue in self.validate:
+        #     self.enhancer = "$DIFF_PRED/lib/enhancer_db/{0}_enhancer.txt".format(self.tissue)
+        # if self.enhancer:
+        #     self._prcurve_plot(self.peak_file, "{0}.weightzscore.sorted.txt".format(self.peak_file),
+        #                        self.enhancer)
+        #     self._count_pca_zscore()
 
     # sub main function
     def _prcurve_plot(self, rawpeak, adjustpeak, enhancers):
@@ -81,6 +81,9 @@ class Diff_model(object):
         sh("Rscript $DIFF_PRED/rscript/pca_fc.r {0} {1} {2}"\
            .format(self.expr_file, self.peak_file, _outdir))
         peakf = os.listdir("{0}/pca_peak/".format(_outdir))
+        self._count_pruac("{0}/../input.bed".format(_outdir),
+                          self.enhancer, "input",
+                          "{0}/pca_pr/".format(_outdir))
 
         for index, item in enumerate(peakf):
             self._count_pruac("{0}/pca_peak/{1}".format(_outdir,item),
