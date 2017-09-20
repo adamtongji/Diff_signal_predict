@@ -107,6 +107,9 @@ class Diff_model(object):
            .format(self.expr_file, self.peak_file, _outdir))
 
         peakf = os.listdir("{0}/pca_peak/".format(_outdir))
+        self._count_pruac("{0}/../input.bed".format(_outdir),
+                         self.enhancer, "input",
+                         "{0}/pca_pr/".format(_outdir))
 
         for index, item in enumerate(peakf):
             self._count_pruac("{0}/pca_peak/tissue{1}peak.txt".format(_outdir,index),
