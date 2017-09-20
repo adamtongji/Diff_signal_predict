@@ -28,7 +28,7 @@ mycount<-t(t(countdata)/colSums(countdata)*mean(colSums(countdata)))
 myfc<-mean(mydist[1,])*mycount[,1]/rowMeans(t(t(mycount)*mydist[1,]))
 test2<-read.table(peak_file,sep='\t')
 outtab<-cbind(test2[,c(1:3)],myfc)
-outtab<-outtab[order(outtab$val, decreasing=TRUE),]
+outtab<-outtab[order(outtab$myfc, decreasing=TRUE),]
 outf<-paste(peak_file,".weightfc.txt",sep='')
 # outf的第四列为重新rank后的score。
 write.table(outtab,file=outf, row.names=F, col.names=F, quote=F, sep='\t')
