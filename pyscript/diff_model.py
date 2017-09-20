@@ -51,12 +51,12 @@ class Diff_model(object):
     def weight_zscore(self):
         sh("Rscript $DIFF_PRED/rscript/weighted_zscore.r {0} {1}".format(self.expr_file, self.peak_file))
         sh("sort -k 4gr,4gr {0}.weightzscore.txt >{0}.weightzscore.sorted.txt".format(self.peak_file))
-        # if self.tissue in self.validate:
-        #     self.enhancer = "$DIFF_PRED/lib/enhancer_db/{0}_enhancer.txt".format(self.tissue)
-        # if self.enhancer:
-        #     self._prcurve_plot(self.peak_file, "{0}.weightzscore.sorted.txt".format(self.peak_file),
-        #                        self.enhancer)
-        #     self._count_pca_zscore()
+        if self.tissue in self.validate:
+            self.enhancer = "$DIFF_PRED/lib/enhancer_db/{0}_enhancer.txt".format(self.tissue)
+        if self.enhancer:
+            self._prcurve_plot(self.peak_file, "{0}.weightzscore.sorted.txt".format(self.peak_file),
+                               self.enhancer)
+            self._count_pca_zscore()
 
     # sub main function
     def _prcurve_plot(self, rawpeak, adjustpeak, enhancers):
