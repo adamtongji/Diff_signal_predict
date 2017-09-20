@@ -100,6 +100,7 @@ class Diff_model(object):
             sh("rm {0}/pca_pr/prauc_val.txt".format(_outdir))
         sh("Rscript $DIFF_PRED/rscript/pca_zscore.r {0} {1} {2}"\
            .format(self.expr_file, self.peak_file, _outdir))
+
         peakf = os.listdir("{0}/pca_peak/".format(_outdir))
 
         for index, item in enumerate(peakf):
