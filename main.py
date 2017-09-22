@@ -57,7 +57,7 @@ def build_matrix(bigwig, outpre, mode, db):
     sh("bigWigAverageOverBed {1} {0}/input.bed stdout | sort -k1g | cut -f 5 > {0}/signal/input.bed".format(outpre, bigwig))
     db_info = [i.rstrip() for i in open("{}/{}/summary.info".format(db,mode))]
     result = []
-    pool = Pool(processes=15)
+    pool = Pool(processes=10)
     for _line in db_info:
         result.append(pool.apply_async(sh,("bigWigAverageOverBed {2}/{3}/{1}_rep0.bigWig {0}/input.bed stdout | sort -k1g | cut -f5 > {0}/signal/{1}.bed"\
             .format(outpre, _line, db, mode),)))
