@@ -18,9 +18,9 @@ def peak_process(peaks,bigwigs, mode, resize, outpre):
            .format(awk_args,peaks,outpre,blacklist_file, tss_file))
     else:
         sh("mkdir -p {}/resize/".format(outpre))
-        if mode=="ATAC-seq" or mode=="DNase-seq":
+        if mode=="DNase-seq":
             _width=150
-        elif mode=="H3K27ac":
+        elif mode=="ATAC-seq" or mode=="H3K27ac":
             _width=1000
         else:
             print "Unknown error in mode! Exit!"
