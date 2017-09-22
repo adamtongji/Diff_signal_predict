@@ -20,12 +20,12 @@ total_positive=$( cat ${outdir}/pos_enhancer.txt | wc -l )
 total_negative=$( cat ${outdir}/neg_enhancer.txt | wc -l )
 
 cut -f1,2,3 $peak_file | awk '{printf "%s\t%d\n",$0,NR}' \
-|intersectBed -wo -a ${outdir}/pos_enhancer.txt -b stdin | cut -f 1-3,7 |sort -k 1,1 -k 2g,2g -k 4g,4g >temp1.txt
-python ${DIFF_PRED}/pyscript/get_best_peak.py temp1.txt $output1 1
+|intersectBed -wo -a ${outdir}/pos_enhancer.txt -b stdin | cut -f 1-3,7 |sort -k 1,1 -k 2g,2g -k 4g,4g > ${outdir}/temp1.txt
+python ${DIFF_PRED}/pyscript/get_best_peak.py ${outdir}/temp1.txt $output1 1
 
 cut -f1,2,3 $peak_file  | awk '{printf "%s\t%d\n",$0,NR}' \
-|intersectBed -wo -a ${outdir}/neg_enhancer.txt -b stdin |  cut -f 1-3,7 |sort -k 1,1 -k 2g,2g -k 4g,4g >temp2.txt
-python ${DIFF_PRED}/pyscript/get_best_peak.py temp2.txt $output2 0
+|intersectBed -wo -a ${outdir}/neg_enhancer.txt -b stdin |  cut -f 1-3,7 |sort -k 1,1 -k 2g,2g -k 4g,4g > ${outdir}/temp2.txt
+python ${DIFF_PRED}/pyscript/get_best_peak.py ${outdir}/temp2.txt $output2 0
 
 # false negative/true negative peaks
 cut -f1,2,3 $peak_file | awk '{printf "%s\t%d\n",$0,NR}' | intersectBed -v -a ${outdir}/pos_enhancer.txt -b stdin|sort| uniq| awk -v totals=$total_peaks '{printf "%s\t%s\n",totals,1}' > $output3
@@ -33,4 +33,4 @@ cut -f1,2,3 $peak_file | awk '{printf "%s\t%d\n",$0,NR}' | intersectBed -v -a ${
 
 
 cat $output1 $output2 $output3 $output4 |sort -k 1g,1g  > $output
-rm $output1 $output2 $output3 $output4 temp1.txt temp2.txt
+rm $output1 $output2 $output3 $output4 ${outdir}/temp1.txt ${outdir}/temp2.txt
