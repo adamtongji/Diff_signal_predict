@@ -19,7 +19,8 @@ def peak_process(peaks,bigwigs, mode, resize, outpre):
     else:
         sh("mkdir -p {}/resize/".format(outpre))
         if mode=="DNase-seq":
-            _width=150
+            # _width=150
+            _width = 1000
         elif mode=="ATAC-seq" or mode=="H3K27ac":
             _width=1000
         else:
