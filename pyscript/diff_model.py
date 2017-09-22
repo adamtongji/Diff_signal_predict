@@ -88,7 +88,7 @@ class Diff_model(object):
                           "{0}/pca_pr/".format(_outdir))
 
         for index, item in enumerate(peakf):
-            self._count_pruac("{0}/pca_peak/{1}".format(_outdir,item),
+            self._count_pruac("{0}/pca_peak/tissue{1}peak.txt".format(_outdir,index+2),
                               self.enhancer,"tis{0}".format(str(index+2)),
                               "{0}/pca_pr/".format(_outdir))
         sh("mkdir -p {0}/plotdir/ ;cp {0}/distance.txt {0}/plotdir/distance.txt; \
@@ -112,7 +112,7 @@ class Diff_model(object):
                          "{0}/pca_pr/".format(_outdir))
 
         for index, item in enumerate(peakf):
-            self._count_pruac("{0}/pca_peak/tissue{1}peak.txt".format(_outdir,index),
+            self._count_pruac("{0}/pca_peak/tissue{1}peak.txt".format(_outdir,index+2),
                               self.enhancer,"tis{0}".format(str(index+2)),
                               "{0}/pca_pr/".format(_outdir))
         sh("mkdir -p {0}/plotdir/ ;cp {0}/distance.txt {0}/plotdir/distance.txt; \
