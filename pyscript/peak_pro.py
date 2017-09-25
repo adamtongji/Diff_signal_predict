@@ -52,7 +52,7 @@ def _get_resized2(peakfile, width, outprefix):
     peaklist = _check_file(peaklis)
     with open("{0}.bed".format(outprefix), "w") as f:
         for _ids, line in enumerate(peaklist):
-            out_line = [line[0], str((int(line[1])+int(line[2]))/2-width),
+            out_line = [line[0], max(1,str((int(line[1])+int(line[2]))/2-width)),
                         str((int(line[1])+int(line[2]))/2+width-1), str(_ids+1)]
             outline2 = "\t".join(out_line)
             print >>f, outline2
