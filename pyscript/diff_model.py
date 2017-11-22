@@ -61,9 +61,9 @@ class Diff_model(object):
     # sub main function
     def _prcurve_plot(self, rawpeak, adjustpeak, enhancers):
         # select only top 5
-        self._count_pruac(rawpeak, enhancers, "raw",self.outprefix)
+        # self._count_pruac(rawpeak, enhancers, "raw",self.outprefix)
         self._count_pruac(adjustpeak, enhancers, "adjusted",self.outprefix)
-        sh("mkdir -p {0}/prauc_tmp/plotdir; cp {0}/rawpr_table.txt {0}/prauc_tmp/plotdir/raw ;\
+        sh("mkdir -p {0}/prauc_tmp/plotdir; cp {0}/pca_tmp/pca_pr/inputpr_table {0}/prauc_tmp/plotdir/raw ;\
            cp {0}/adjustedpr_table.txt {0}/prauc_tmp/plotdir/adjusted".format(self.outprefix))
         self._plt_prcurve("{0}/prauc_tmp/plotdir/".format(self.outprefix),self.outprefix)
 
@@ -119,7 +119,6 @@ class Diff_model(object):
            cp {0}/pca_pr/prauc_val.txt {0}/plotdir/prauc_val.txt".format(_outdir))
         # output the figure to main directory
         self._plt_scatter("{0}/plotdir/".format(_outdir),self.outprefix)
-
 
 
     def _plt_scatter(self,pltdir, outdir):

@@ -17,7 +17,7 @@ pca_dds <- estimateSizeFactors(dds)
 se <- SummarizedExperiment(log2(counts(pca_dds, normalized=TRUE)),colData=colData(pca_dds))
 
 mydat<-plotPCA( DESeqTransform(se),returnData =TRUE)
-mydist<-as.matrix(dist(mydat[,c(1,2)]))
+mydist<-as.matrix(dist(mydat[,c(1:6)]))
 outd <- paste(outdir,"/distance.txt",sep='')
 write.table(mydist[,1],file=outd,sep='\t',row.names=F,col.names=F,quote=F)
 
