@@ -17,7 +17,7 @@ se <- SummarizedExperiment(log2(counts(pca_dds, normalized=TRUE)),colData=colDat
 
 # mydat<-plotPCA( DESeqTransform(se),returnData =TRUE)
 # mydist<-as.matrix(dist(mydat[,c(1,2)]))
-mydat<-prcomp(t(log2(counts(pca_dds, normalized=TRUE),)),center=T,scale.=T)
+mydat<-prcomp(t(log2(counts(pca_dds, normalized=TRUE))),center=T,scale.=T)
 mydist <- as.matrix(dist(mydat$x[,c(1:6)]))
 
 #following 2 are for DNase
