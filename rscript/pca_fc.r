@@ -29,7 +29,8 @@ write.table(mydist[,1],file=outd,sep='\t',row.names=F,col.names=F,quote=F)
 mycount<-countdata
 
 for (i in c(2:ncol(countdata))){
-    myfc<-mycount[,1]/mycount[,i]
+    # myfc<-mycount[,1]/mycount[,i]
+    myfc<-mycount[,1]-mycount[,i]
     test2<-read.table(peak_file,sep='\t')
     outtab<-cbind(test2[,c(1:3)],myfc)
     colnames(outtab)<-c("chrom","start","end","val")
