@@ -7,7 +7,7 @@ outdir = args[3]
 
 test<-read.table(expr_file,sep='\t',header=TRUE)
 condition=colnames(test)
-countdata<-floor(test*10)+1
+countdata<-floor(t(t(test)/colSums(test)*mean(colSums(test)))*10)+1
 rownames(countdata)<-paste("peak_",c(1:nrow(countdata)),sep='')
 
 

@@ -6,7 +6,7 @@ peak_file = args[2]
 
 test<-read.table(expr_file,sep='\t',header=TRUE)
 condition=colnames(test)
-countdata<-floor(test*10)+1
+countdata<-floor(t(t(test)/colSums(test)*mean(colSums(test)))*10)+1
 rownames(countdata)<-paste("peak_",c(1:nrow(countdata)),sep='')
 
 
@@ -22,8 +22,8 @@ mydist <- as.matrix(dist(mydat$x[,c(1:6)]))
 
 #following 2 are for DNase
 # !! Temporary not normalize sequencing depth !!!
-mycount<-t(t(countdata)/colSums(countdata)*mean(colSums(countdata)))
-# mycount<-countdata
+# mycount<-t(t(countdata)/colSums(countdata)*mean(colSums(countdata)))
+mycount<-countdata
 # mycount<-t(t(countdata)*dnase_norm)
 # mycount<-scale(log2(countdata))
 # 第一列数据乘以距离平均值 除以 后面每一列乘以权重后,取行平均值
