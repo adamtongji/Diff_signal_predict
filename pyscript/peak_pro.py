@@ -13,14 +13,14 @@ def peak_process(peaks,bigwigs, mode, resize, outpre):
         awk_args = '{printf "%s\\t%d\\t%d\\t%d\\n",$1,$2,$3,NR}'
         # Need revise with more genome versions.
         ##
-        sh("awk '{0}' {1} | intersectBed -a stdin -b $DIFF_PRED/lib/genome_file/{4} -v\
+        sh("awk '{0}' {1} | grep -v '-' | intersectBed -a stdin -b $DIFF_PRED/lib/genome_file/{4} -v\
          | intersectBed -a stdin -b $DIFF_PRED/lib/genome_file/{3} -v > {2}/input.bed"\
            .format(awk_args,peaks,outpre,blacklist_file, tss_file))
     else:
         sh("mkdir -p {}/resize/".format(outpre))
         if mode=="DNase-seq":
-            # _width=150
-            _width = 1000
+            _width=150
+            # _width = 1000
         elif mode=="ATAC-seq" or mode=="H3K27ac":
             _width=1000
         else:
