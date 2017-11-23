@@ -19,7 +19,7 @@ se <- SummarizedExperiment(log2(counts(pca_dds, normalized=TRUE)),colData=colDat
 # mydat<-plotPCA( DESeqTransform(se),returnData =TRUE)
 # mydist<-as.matrix(dist(mydat[,c(1,2)]))
 mydat<-prcomp(t(log2(counts(pca_dds, normalized=TRUE))),center=T,scale.=T)
-mydist <- as.matrix(dist(mydat$x[,c(1:6)]))
+mydist <- as.matrix(dist(mydat$x[,c(1:10)]))
 
 outd <- paste(outdir,"/distance.txt",sep='')
 write.table(mydist[,1],file=outd,sep='\t',row.names=F,col.names=F,quote=F)
