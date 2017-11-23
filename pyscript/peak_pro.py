@@ -32,7 +32,7 @@ def peak_process(peaks,bigwigs, mode, resize, outpre):
 
         sh("export LC_ALL=C; sort -k1,1 -k 2g,2g -k 3g,3g {0}/resize/raw.bed| \
         mergeBed -i stdin -c 4 -o min | sort -k 4g,4g | intersectBed -a stdin -b $DIFF_PRED/lib/genome_file/{2} -v\
-         | intersectBed -a stdin -b $DIFF_PRED/lib/genome_file/{1} -v >\
+         | intersectBed -a stdin -b $DIFF_PRED/lib/genome_file/{1} -v| grep -v '-' >\
          {0}/resize/process.bed".format(outpre, blacklist_file, tss_file))
 
         _get_resized2("{}/resize/process.bed".format(outpre), _width
