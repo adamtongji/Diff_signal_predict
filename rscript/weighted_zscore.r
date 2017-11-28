@@ -24,7 +24,7 @@ mydist <- as.matrix(dist(mydat$x[,c(1:10)]))
 #mycount<-t(t(countdata)/colSums(countdata)*mean(colSums(countdata)))
 #mycount<-t(t(countdata)*dnase_norm)
 # 下面这部就是取Log2 zscore
-mycount<-scale(log2(countdata))
+mycount<-scale(log2(countdata),center=T,scale.=T)
 myfc<-mean(mydist[1,])*mycount[,1]-rowMeans(t(t(mycount)*mydist[1,]))
 test2<-read.table(peak_file,sep='\t')
 outtab<-cbind(test2[,c(1:3)],myfc)

@@ -27,10 +27,14 @@ write.table(mydist[,1],file=outd,sep='\t',row.names=F,col.names=F,quote=F)
 # !! Temporary not normalize sequencing depth !!!
 # mycount<-t(t(countdata)/colSums(countdata)*mean(colSums(countdata)))
 mycount<-countdata
-
+myfc<-mycount[,1]
+test2<-read.table(peak_file,sep='\t')
+outtab<-cbind(test2[,c(1:3)],myfc)
+colnames(outtab)<-c("chrom","start","end","val")
+outtab<-outtab[order(outtab$val, decreasing=TRUE),]
+outf<-paste(outdir,"/pca_peak/tissue","0","peak.txt",sep='')
 for (i in c(2:ncol(countdata))){
-    # myfc<-mycount[,1]/mycount[,i]
-    myfc<-mycount[,1]-mycount[,i]
+    myfc<-mycount[,1]/mycount[,i]
     test2<-read.table(peak_file,sep='\t')
     outtab<-cbind(test2[,c(1:3)],myfc)
     colnames(outtab)<-c("chrom","start","end","val")

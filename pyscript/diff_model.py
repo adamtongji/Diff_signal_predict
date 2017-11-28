@@ -83,7 +83,7 @@ class Diff_model(object):
         sh("Rscript $DIFF_PRED/rscript/pca_fc.r {0} {1} {2}"\
            .format(self.expr_file, self.peak_file, _outdir))
         peakf = os.listdir("{0}/pca_peak/".format(_outdir))
-        self._count_pruac("{0}/../input.bed".format(_outdir),
+        self._count_pruac("{0}/pca_peak/tissue0peak.txt".format(_outdir),
                           self.enhancer, "input",
                           "{0}/pca_pr/".format(_outdir))
 
@@ -107,7 +107,7 @@ class Diff_model(object):
            .format(self.expr_file, self.peak_file, _outdir))
 
         peakf = os.listdir("{0}/pca_peak/".format(_outdir))
-        self._count_pruac("{0}/../input.bed".format(_outdir),
+        self._count_pruac("{0}/pca_peak/tissue0peak.txt".format(_outdir),
                          self.enhancer, "input",
                          "{0}/pca_pr/".format(_outdir))
 
